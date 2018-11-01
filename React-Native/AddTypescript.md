@@ -1,4 +1,4 @@
-# Adding TypeScript
+# Adding TypeScript To React-Native
 
 1. **Typescript** 모듈 설치
 2. **[React Native Typescript Transformer](https://github.com/ds300/react-native-typescript-transformer)** 추가
