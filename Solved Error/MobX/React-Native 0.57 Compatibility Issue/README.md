@@ -13,13 +13,21 @@ Error when building on `react native 0.57` and `mobx` in **Android**
 
 **run** `yarn add --dev jsc-android`
  
- and add configurations on `android/app/build.gradle`
- ```gradle
- // mobx fix
+and add configurations on `android/app/build.gradle`
+```gradle
+// mobx fix
 configurations.all {
-  resolutionStrategy {
-    force 'org.webkit:android-jsc:r225067'
-  }
+    resolutionStrategy {
+        force 'org.webkit:android-jsc:r225067'
+    }
 }
- ```
+```
+
+and add configurations on `android/build.gradle`
+```gradle
+maven {
+    // ADDED THIS - Local Maven repo containing AARs with JSC library built for Android
+    url "$rootDir/../node_modules/jsc-android/dist" 
+}
+```
 
