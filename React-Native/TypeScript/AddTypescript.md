@@ -6,7 +6,8 @@
 4. Empty **React Native TypsScript Transformer config file** 작성
 5. **[Types](https://github.com/DefinitelyTyped/DefinitelyTyped)** 추가
 
----------------
+---
+
 1. `yarn add --dev typescript`
 2. `yarn add --dev react-native-typescript-transformer`
 3. `yarn tsc --init --pretty --jsx react`
@@ -16,12 +17,12 @@
 ---
 
 `tsconfig.json` 파일은 Typescript 컴파일러의 세팅을 관리.
-3번 초기화 세팅에 추가로, 아래 세팅을 uncomment 해야함.
+3 번 초기화 세팅에 추가로, 아래 세팅을 uncomment 해야함.
 
 ```javascript
 {
-  /* Search the config file for the following line and uncomment it. */
-  // "allowSyntheticDefaultImports": true,  /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
+    /* Search the config file for the following line and uncomment it. */
+    // "allowSyntheticDefaultImports": true,  /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
 }
 ```
 
@@ -29,13 +30,56 @@
 
 `rn-cli.config.js` 파일은 `React Native TypeScript Transformer`의 세팅을 관리.
 아래 코드 추가 해야함.
+
 ```javascript
 module.exports = {
-  getTransformModulePath() {
-    return require.resolve('react-native-typescript-transformer');
-  },
-  getSourceExts() {
-    return ['ts', 'tsx'];
-  },
+    getTransformModulePath() {
+        return require.resolve('react-native-typescript-transformer');
+    },
+    getSourceExts() {
+        return ['ts', 'tsx'];
+    },
 };
+```
+
+# React Native Typescript Template
+
+> `react-native init RNTypescript --template typescript` > `cd RNTypescript && node setup.js`
+
+이러면 위의 Setup 절차 끝.
+
+# TSLint && prettier on vscode
+
+### TSLint
+
+https://medium.com/@sgroff04/configure-typescript-tslint-and-prettier-in-vs-code-for-react-native-development-7f31f0068d2
+
+> `yarn add --dev tslint tslint-config-prettier tslint-config-standard tslint-react prettier`
+
+`tslint-config-prettier`는 `tslint`와 `prettier`가 싸우지 않게함.
+
+> `npx tslint --init`
+
+`tslint.json` 파일 생성 후 **extends** 설정
+
+```json
+{
+  ...
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-standard",
+    "tslint-react",
+    "tslint-config-prettier"
+  ]
+  ...
+}
+```
+
+### Prettier
+
+**VSCode**에 두 가지 설정.
+
+```json
+"editor.formatOnSave": true,
+"javascript.format.enable": false
 ```
