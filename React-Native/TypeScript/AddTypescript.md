@@ -46,7 +46,55 @@ module.exports = {
 
 > `react-native init RNTypescript --template typescript` > `cd RNTypescript && node setup.js`
 
-이러면 위의 Setup 절차 끝.
+이러면 기본 typescript dependency 설치해주고, tsconfig.json 까지 잡아줌.
+
+`touch rn-cli.config.js` 하고,
+
+```javascript
+module.exports = {
+    getTransformModulePath() {
+        return require.resolve('react-native-typescript-transformer');
+    },
+    getSourceExts() {
+        return ['ts', 'tsx'];
+    },
+};
+```
+
+작성하여 tsconfig.json 추가.
+
+# Babel Setup
+
+```bash
+yarn add @babel/plugin-proposal-decorators @babel/plugin-proposal-object-rest-spread @babel/plugin-transform-runtime
+```
+
+실행 한 후
+
+`.babelrc` 수정
+
+```json
+{
+    "presets": ["module:metro-react-native-babel-preset"],
+    "sourceMaps": "inline",
+    "plugins": [
+        [
+            "@babel/plugin-proposal-decorators",
+            {
+                "legacy": true
+            }
+        ],
+        [
+            "@babel/plugin-transform-runtime",
+            {
+                "helpers": true,
+                "regenerator": false
+            }
+        ],
+        "@babel/proposal-object-rest-spread"
+    ]
+}
+```
 
 # TSLint && prettier on vscode
 
@@ -60,18 +108,27 @@ https://medium.com/@sgroff04/configure-typescript-tslint-and-prettier-in-vs-code
 
 > `npx tslint --init`
 
-`tslint.json` 파일 생성 후 **extends** 설정
+`tslint.json` 파일 생성 후 **extends, rules** 설정
 
 ```json
 {
-  ...
-  "extends": [
-    "tslint:recommended",
-    "tslint-config-standard",
-    "tslint-react",
-    "tslint-config-prettier"
-  ]
-  ...
+    ...
+    "extends": [
+        "tslint:recommended",
+        "tslint-config-standard",
+        "tslint-react",
+        "tslint-config-prettier"
+    ],
+    "rules": {
+        "object-literal-sort-keys": false,
+        "ordered-imports": false,
+        "jsx-no-lambda": false,
+        "jsx-no-multiline-js": false,
+        "jsx-wrap-multiline": false,
+        "jsx-alignment": false,
+        "jsx-curly-spacing": false
+    },
+    ...
 }
 ```
 
