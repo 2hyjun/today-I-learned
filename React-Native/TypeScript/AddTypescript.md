@@ -45,7 +45,7 @@ module.exports = {
 # React Native Typescript Template
 
 > `react-native init RNTypescript --template typescript` > `cd RNTypescript && node setup.js`
-
+> `yarn add --dev react-native-typescript-transformer`
 이러면 기본 typescript dependency 설치해주고, tsconfig.json 까지 잡아줌.
 
 `touch rn-cli.config.js` 하고,
