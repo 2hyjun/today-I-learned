@@ -85,6 +85,18 @@ configurations.all {
 }
 ```
 
+and upgrade min SDK to 21
+
+```groovy
+ext {
+    buildToolsVersion = "27.0.3"
+    minSdkVersion = 21
+    compileSdkVersion = 27
+    targetSdkVersion = 26
+    supportLibVersion = "27.1.1"
+}
+```
+
 ### 5. Configure `Babel`
 
 **.babelrc**
