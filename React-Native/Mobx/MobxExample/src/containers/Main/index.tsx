@@ -23,7 +23,7 @@ export default class Main extends React.Component<IProps> {
         const { color } = backgroundColor;
         return (
             <Background backgroundColor={backgroundColorString} color={color} onColorChange={(r, g, b) => this.setColor(r, g, b)}>
-                <TodoList list={todos.list} addTodo={todos.addTodo()} />
+                <TodoList list={todos.list} addTodo={title => todos.addTodo(title)} />
             </Background>
         );
     }
