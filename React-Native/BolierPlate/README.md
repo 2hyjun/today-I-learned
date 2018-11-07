@@ -145,7 +145,9 @@ and create **tslint.json** file
         "jsx-wrap-multiline": false,
         "jsx-alignment": false,
         "jsx-curly-spacing": false,
-        "member-ordering": false
+        "member-ordering": false,
+        "no-console": false,
+        "no-var-requires": false
     },
     "rulesDirectory": []
 }
