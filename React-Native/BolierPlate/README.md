@@ -134,21 +134,23 @@ and create **tslint.json** file
 
 ```json
 {
-    "defaultSeverity": "error",
-    "extends": ["tslint:recommended", "tslint-config-standard", "tslint-react", "tslint-config-prettier"],
-    "jsRules": {},
-    "rules": {
-        "object-literal-sort-keys": false,
-        "ordered-imports": false,
-        "jsx-no-lambda": false,
-        "jsx-no-multiline-js": false,
-        "jsx-wrap-multiline": false,
-        "jsx-alignment": false,
-        "jsx-curly-spacing": false,
-        "member-ordering": false,
-        "no-console": false,
-        "no-var-requires": false
-    },
-    "rulesDirectory": []
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended", "tslint-config-standard", "tslint-react", "tslint-config-prettier"],
+  "jsRules": {},
+  "rules": {
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "jsx-no-lambda": false,
+    "jsx-no-multiline-js": false,
+    "jsx-wrap-multiline": false,
+    "jsx-alignment": false,
+    "jsx-curly-spacing": false,
+    "member-ordering": false,
+    "no-console": false,
+    "no-var-requires": false,
+    "no-empty": true,
+    "forin": false
+  },
+  "rulesDirectory": []
 }
 ```
