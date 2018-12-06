@@ -1,0 +1,14 @@
+{
+  "name": "MobxExample-plainJavascript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "mobx": "^5.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.12",
+    "ts-loader": "^5.3.1",
+    "typescript": "^3.2.1"
+  }
+}
