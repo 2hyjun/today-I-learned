@@ -30,6 +30,6 @@ const ShopItemList: React.FunctionComponent<any> = ({ onPut }) => {
 export default inject(({ market, counter }) => ({
   onPut: (name: string, price: number) => {
     market.put(name, price);
-    counter.setCount(1);
+    if (counter.number > 1) counter.setCount(1);
   },
 }))(observer(ShopItemList));
