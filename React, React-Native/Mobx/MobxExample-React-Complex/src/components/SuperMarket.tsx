@@ -6,7 +6,7 @@ import BasketItemList from './BasketItemList';
 import TotalPrice from './TotalPrice';
 
 const SuperMarket: React.FunctionComponent<any> = () => {
-  return <SuperMarketTemplate items={<ShopItemList />} basket={<BasketItemList />} total={<TotalPrice/>} />;
+  return <SuperMarketTemplate items={<ShopItemList />} basket={<BasketItemList />} total={<TotalPrice />} />;
 };
 
 export default SuperMarket;
