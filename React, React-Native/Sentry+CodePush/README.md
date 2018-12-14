@@ -41,7 +41,7 @@ RN에서는 _Android_, _iOS_ 총 2개의 App을 생성해야 한다.
 ### Organization
 
 Organization을 생성해서 프로젝트들을 묶어서 관리하고, 팀원들을 초대할 수 있다.
-이 경우에는 [appcenter.ms](https://appcenter.ms)에서 _Organization_ 을 생성하고, *ProjectName*을 `<GroupName/ProjectName>`으로 설정하면 된다.
+이 경우에는 [appcenter.ms](https://appcenter.ms)에서 _Organization_ 을 생성하고, *ProjectName*을 `<OrganizationName/ProjectName>`으로 설정하면 된다.
 
 예)
 
