@@ -27,8 +27,8 @@ _cli_ 창에서 다음과 같이 출력되고, 웹 브라우저가 실행되며 
 
 ### 2. App 생성
 
-`code-push-cli`를 통해서 App를 생성한다.  
-RN에서는 _Android_, _iOS_ 총 2개의 App를 생성해야 한다.
+`code-push-cli`를 통해서 App을 생성한다.  
+RN에서는 _Android_, _iOS_ 총 2개의 App을 생성해야 한다.
 
 > Note, if you are targeting both platforms it is recommended to create separate CodePush applications for each platform.
 
