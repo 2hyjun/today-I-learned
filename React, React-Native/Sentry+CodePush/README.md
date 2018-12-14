@@ -11,7 +11,7 @@ React Native에 `CodePush`를 통해 데이터 패치, `Sentry`를 통해 Crash 
 
 # CodePush
 
-### 1. Login
+# 1. Login
 
 > `$ npm install -g code-push-cli`
 
@@ -25,7 +25,7 @@ _cli_ 창에서 다음과 같이 출력되고, 웹 브라우저가 실행되며 
 
 위의 *token*을 *cli*에 입력하면 로그인 완료.
 
-### 2. App 생성
+# 2. App 생성
 
 `code-push-cli`를 통해서 App을 생성한다.  
 RN에서는 _Android_, _iOS_ 총 2개의 App을 생성해야 한다.
@@ -54,7 +54,7 @@ _Production_, _Staging_ 총 2 개의 *Deployment Level*이 존재하고, 각 lev
 
 `$ code-push deployment ls <ProjectName> -k`를 통해서 해당 키를 확인 할 수 있다.
 
-### 3. installation
+# 3. installation
 
 이제 SDK를 설치하자.
 
@@ -142,7 +142,7 @@ end
 
 ![ios_key](img/Code-Push/8_ios_key.png)
 
-이후 `CMD + SHIFT + ,`를 입력하고 Build Configuration을 `Staging`으로 설정한후 앱을 실행시켜보자.
+이후 `CMD + SHIFT + ,`를 입력하고 Build Configuration을 `release`로 설정한후 앱을 실행시켜보자.
 빌드하는 동안, `App.js`파일을 다음과 같이 수정하자.
 
 ```jsx
@@ -257,7 +257,7 @@ export default CodePush(codePushConfig)(App);
 
 #### 3.2 Android Setup
 안드로이드는 간단하다.
-*iOS* 셋업하면서 `react-native link react-native code-push`를 실행했을 것이다.
+*iOS* 셋업하면서 `react-native link react-native-code-push`를 실행했을 것이다.
 기본적인 것은 전부 설정되었을 것이고, *Multi Deployment Test* 만 하면된다.
 
 나 처럼 `react-native link` 를 불신하는 사람들은 [링크](https://github.com/Microsoft/react-native-code-push/blob/master/docs/setup-android.md)를 확인해서 잘 되었는지 확인하자.
@@ -267,7 +267,7 @@ export default CodePush(codePushConfig)(App);
 #### Multi Deployment Test
 
 1. `android/app/build.gradle` 파일 오픈
-2. `android` - `buildTypes` 부분에 `releaseStaging`을 추가하고, 다음과 같이 변경하자.
+2. `android` - `buildTypes` 부분에 `debug`와 `releaseStaging`을 추가하고, 다음과 같이 변경하자.
 ```gradle
 android {
     ...
@@ -322,13 +322,17 @@ protected List<ReactPackage> getPackages() {
 ![android](img/Code-Push/10_android.png)
 ios와 같이 작동하면 완성.
 
-### 3. Release
+# 4. Release
 
-시뮬레이터를 두개 킨 다음, 두개 모두 올려보자.
+시뮬레이터를 두 개 킨 다음, 두 개에 모두 앱을 올려보자.
+
 
 ![release](img/Code-Push/11_release1.png)
 
 그 후 `App.js` 소스를 수정하고, 시뮬레이터 하나에만 `Staging(ios) / releaseStaging(android)` 빌드로 올려보자.
+
+> ios는 `CMD + SHIFT + ,`를 통해 build configuration 변경
+> android는 `react-native run-android --variant=[release, releaseStaging]`으로 변경
 
 ```jsx
 
@@ -342,8 +346,12 @@ ios와 같이 작동하면 완성.
 ```
 
 ![release](img/Code-Push/12_release2.png)
+왼쪽은 `Production` 빌드이고, 오른쪽은 `Staging` 빌드이다.
+아까 설명한 것 처럼 *CodePush*는 *2 개의 Deployment Level*이 존재한다. 한번에 두 개의 빌드레벨에 모두 배포할 수는 없으며, 한번에 한 레벨에만 배포가 가능하다.
 
-그 후, RN Root 디렉토리에서  
+배포 해봄과 동시에 *Deployment level*을 구별해서 배포해보자.
+
+위 처럼 `App.js`를 수정한 후, RN Root 디렉토리에서  
 `code-push release-react <ProjectName> <os> -d Staging`을 실행하자.
 
 > 예) `code-push release-react CodePushSentryiOS ios -d Staging`
@@ -371,5 +379,7 @@ ios와 같이 작동하면 완성.
 ![release](img/Code-Push/14_release4.png)
 
 이번에는 *Production Deployment key*로 빌드한 *release* 빌드에만 반영된다.
+
+이 예제는 *ios*에만 반영한 것이고 실제 개발 할 때는 *android* 도 같이 반영해주자.
 
 CodePush의 자세한 사용법은 [react-native-code-push](https://github.com/Microsoft/react-native-code-push)와 [appcenter docs](https://docs.microsoft.com/en-us/appcenter/distribution/codepush/)를 참고하자.
