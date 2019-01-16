@@ -1,3 +1,5 @@
+# THIS TUTORIAL IS DEPRECATED
+
 # CodePush + Sentry Tutorials
 
 React Native에 `CodePush`를 통해 데이터 패치, `Sentry`를 통해 Crash Reporting을 해보자.
