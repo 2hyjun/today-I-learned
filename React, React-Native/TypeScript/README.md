@@ -8,56 +8,18 @@
 
 ---
 
-1. `yarn add --dev typescript`
-2. `yarn add --dev react-native-typescript-transformer`
-3. `yarn tsc --init --pretty --jsx react`
-4. `touch rn-cli.config.js`
-5. `yarn add --dev @types/react @types/react-native`
-
----
-
-`tsconfig.json` 파일은 Typescript 컴파일러의 세팅을 관리.
-3 번 초기화 세팅에 추가로, 아래 세팅을 uncomment 해야함.
-
-```javascript
-{
-    /* Search the config file for the following line and uncomment it. */
-    // "allowSyntheticDefaultImports": true,  /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
-}
-```
-
----
-
-`rn-cli.config.js` 파일은 `React Native TypeScript Transformer`의 세팅을 관리.
-아래 코드 추가 해야함.
-
-```javascript
-module.exports = {
-    getTransformModulePath() {
-        return require.resolve('react-native-typescript-transformer');
-    },
-    getSourceExts() {
-        return ['ts', 'tsx'];
-    },
-};
-```
-
 # React Native Typescript Template
 
-> `react-native init RNTypescript --template typescript` > `cd RNTypescript && node setup.js`
-> `yarn add --dev react-native-typescript-transformer`
-이러면 기본 typescript dependency 설치해주고, tsconfig.json 까지 잡아줌.
+> `react-native init RNTypescript --template typescript` > `cd RNTypescript && node setup.js` > `yarn add --dev react-native-typescript-transformer`
+> 이러면 기본 typescript dependency 설치해주고, tsconfig.json 까지 잡아줌.
 
 `touch rn-cli.config.js` 하고,
 
 ```javascript
 module.exports = {
-    getTransformModulePath() {
-        return require.resolve('react-native-typescript-transformer');
-    },
-    getSourceExts() {
-        return ['ts', 'tsx'];
-    },
+  transformer: {
+    babelTransformerPath: require.resolve('react-native-typescript-transformer'),
+  },
 };
 ```
 
@@ -75,24 +37,24 @@ yarn add @babel/plugin-proposal-decorators @babel/plugin-proposal-object-rest-sp
 
 ```json
 {
-    "presets": ["module:metro-react-native-babel-preset"],
-    "sourceMaps": "inline",
-    "plugins": [
-        [
-            "@babel/plugin-proposal-decorators",
-            {
-                "legacy": true
-            }
-        ],
-        [
-            "@babel/plugin-transform-runtime",
-            {
-                "helpers": true,
-                "regenerator": false
-            }
-        ],
-        "@babel/proposal-object-rest-spread"
-    ]
+  "presets": ["module:metro-react-native-babel-preset"],
+  "sourceMaps": "inline",
+  "plugins": [
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "helpers": true,
+        "regenerator": false
+      }
+    ],
+    "@babel/proposal-object-rest-spread"
+  ]
 }
 ```
 
