@@ -1,0 +1,2 @@
+https://blog.usejournal.com/typescript-react-native-7e3b2e38e272
+https://www.npmjs.com/package/react-native-typescript-transformer
