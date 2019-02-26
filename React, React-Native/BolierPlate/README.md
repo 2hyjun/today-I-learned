@@ -127,7 +127,7 @@ ext {
 ### 6. Configure TSLint
 
 ```bash
-yarn add --dev tslint tslint-config-prettier tslint-config-standard tslint-react
+yarn add --dev tslint tslint-config-prettier tslint-react
 ```
 
 and create **tslint.json** file
@@ -135,7 +135,7 @@ and create **tslint.json** file
 ```json
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:recommended", "tslint-config-standard", "tslint-react", "tslint-config-prettier"],
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
   "jsRules": {},
   "rules": {
     "object-literal-sort-keys": false,
