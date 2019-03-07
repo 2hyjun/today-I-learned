@@ -5,6 +5,7 @@ import { ChatState, sendMessage, deleteMessage } from './store/chat/types';
 import { SystemState, updateSession } from './store/system/types';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators, AnyAction } from 'redux';
+import { Button } from 'reactstrap';
 
 interface StateProps {
   chat: ChatState; // state
@@ -22,8 +23,18 @@ const mapStateToProps = (state: AppState) => ({
   chat: state.chat,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
-  bindActionCreators(
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
+  console.log(
+    bindActionCreators(
+      {
+        sendMessage,
+        deleteMessage,
+        updateSession,
+      },
+      dispatch,
+    ),
+  );
+  return bindActionCreators(
     {
       sendMessage,
       deleteMessage,
@@ -31,6 +42,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
     },
     dispatch,
   );
+};
 
 class App extends React.Component<StateProps & DispatchProps, { value: string }> {
   constructor(props: StateProps & DispatchProps) {
@@ -60,7 +72,8 @@ class App extends React.Component<StateProps & DispatchProps, { value: string }>
         <input onChange={(e) => this.setState({ value: e.target.value })} value={this.state.value} />
         <button onClick={() => this.props.deleteMessage(parseInt(this.state.value, 10))}>deleteMessage</button>
         <hr />
-        <button
+        <Button
+          color='primary'
           onClick={() =>
             this.props.updateSession({
               loggedIn: true,
@@ -70,7 +83,7 @@ class App extends React.Component<StateProps & DispatchProps, { value: string }>
           }
         >
           updateSession
-        </button>
+        </Button>
       </div>
     );
   }
