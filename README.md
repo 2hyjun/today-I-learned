@@ -13,5 +13,6 @@
 # TODO
 
 - [x] CodePush Configuration
-- [ ] Sentry Configuration
-- [ ] CodePush + Sentry Usage
+- [x] Sentry Configuration: Deprecated.
+- [x] CodePush + Sentry Usage
+- [ ] Update Sentry Configuration

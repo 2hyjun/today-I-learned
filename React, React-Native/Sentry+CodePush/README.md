@@ -1,4 +1,4 @@
-# THIS TUTORIAL IS DEPRECATED
+# THIS TUTORIAL IS DEPRECATED...
 
 # CodePush + Sentry Tutorials
 
