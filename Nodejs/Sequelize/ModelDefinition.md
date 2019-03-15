@@ -72,26 +72,26 @@ const Foo = sequelize.define('foo', {
 })
 ```
 
-| key           | value                       | description            |
-| ------------- | --------------------------- | ---------------------- |
-| defaultValue  | `any`                       | 기본값                    |
-| allowNull     | `boolean`                   | Null 허용?               |
-| unique        | `string` or `boolean`       | uniquekey              |
-| primaryKey    | boolean                     | primaryKey 할당?         |
-| autoIncrement | boolean                     | 자동 증가?                 |
-| field         | string                      | custom field attribute |
-| references    | `{ model, key, deferrable}` | create foreign key     |
+| key           | value                       | description                            |
+| ------------- | --------------------------- | -------------------------------------- |
+| defaultValue  | `any`                       | 기본값                                    |
+| allowNull     | `boolean`                   | Null 허용?                               |
+| unique        | `string` or `boolean`       | uniquekey                              |
+| primaryKey    | boolean                     | primaryKey 할당?                         |
+| autoIncrement | boolean                     | 자동 증가?                                 |
+| field         | string                      | custom field 이름                        |
+| references    | `{ model, key, deferrable}` | create foreign key (위 예제의 `bar_id` 참고) |
 
 
-# Timestamps
+### Timestamps
 
-기본적으로, Sequelize는 `createdAt`, updatedAt` 필드를 자동으로 추가해준다.
+기본적으로, Sequelize는 `createdAt`, `updatedAt` 필드를 자동으로 추가해준다.
 
-# Range types
+### Range types
 
 range types는 boundary에서 inclusion/exclusion에 관한 정보가 필요하므로, 단순히 javascript tuple로 표현하기는 한계가 있다.
 
-그러땐, 다음의 API를 사용하면 된다.
+그럴땐, 다음의 API를 사용하면 된다.
 
 tuple로 구성한다면,
 lower bound에서는 inclusive가 기본
@@ -144,8 +144,10 @@ Timeline.create({ range: [-Infinity, new Date(Date.UTC(2016, 0, 1))] });
 # Getters & setters
 
 모델에 `getter`, `setter`를 정의하는 것이 가능하다. 
-1. single property definition으로 정의 가능
-2. model option으로 정의가능
+1. single property definition으로 (특정 field에 한해) 정의  
+(Defining as part of a property)
+1. model option으로 (전역으로) 정의  
+(Defining as part of the model options)
 
 ### Defining as part of a property
 
@@ -204,7 +206,7 @@ const Foo = sequelize.define('foo', {
 
 ### Helper functions for use inside getter and settier definitions
 
-- retrieving an underlying property value - always use `this.getDataValue('...')`
+- 특정 Field 값 검색 - always use `this.getDataValue('...')`
 
 ```js
 /* a geeter for 'title' property */
@@ -213,7 +215,7 @@ get() {
 }
 ```
 
-- setting an underlying property value - always use `this.setDataValue()`
+- 특정 field 값 할당 - always use `this.setDataValue()`
 
 ```js
 /* a setter for 'title' property */
@@ -224,3 +226,83 @@ set(title) {
 > `getDataValue()`를 사용하지 않고,
 > `this.firstname`을 사용하면, 해당하는 getter functions를 트리거 한다.
 > 그러지 않고 `raw value`에 접근하려면 `getDataValue()`를 사용.
+
+# Validation
+
+`create`. `update`, `save`가 실행되거나, 수동으로 `validate()`를 실행하면, 자동으로 제공된 `validation` 검사가 이루어진다.
+
+```js
+const ValidateMe = sequelize.define('foo', {
+  foo: {
+    type: Sequelize.STRING,
+    validate: {
+      is: ["^[a-z]+$",'i'],     // will only allow letters
+      is: /^[a-z]+$/i,          // same as the previous example using real RegExp
+      not: ["[a-z]",'i'],       // will not allow letters
+      isEmail: true,            // checks for email format (foo@bar.com)
+      isUrl: true,              // checks for url format (http://foo.com)
+      isIP: true,               // checks for IPv4 (129.89.23.1) or IPv6 format
+      isIPv4: true,             // checks for IPv4 (129.89.23.1)
+      isIPv6: true,             // checks for IPv6 format
+      isAlpha: true,            // will only allow letters
+      isAlphanumeric: true,     // will only allow alphanumeric characters, so "_abc" will fail
+      isNumeric: true,          // will only allow numbers
+      isInt: true,              // checks for valid integers
+      isFloat: true,            // checks for valid floating point numbers
+      isDecimal: true,          // checks for any numbers
+      isLowercase: true,        // checks for lowercase
+      isUppercase: true,        // checks for uppercase
+      notNull: true,            // won't allow null
+      isNull: true,             // only allows null
+      notEmpty: true,           // don't allow empty strings
+      equals: 'specific value', // only allow a specific value
+      contains: 'foo',          // force specific substrings
+      notIn: [['foo', 'bar']],  // check the value is not one of these
+      isIn: [['foo', 'bar']],   // check the value is one of these
+      notContains: 'bar',       // don't allow specific substrings
+      len: [2,10],              // only allow values with length between 2 and 10
+      isUUID: 4,                // only allow uuids
+      isDate: true,             // only allow date strings
+      isAfter: "2011-11-05",    // only allow date strings after a specific date
+      isBefore: "2011-11-05",   // only allow date strings before a specific date
+      max: 23,                  // only allow values <= 23
+      min: 23,                  // only allow values >= 23
+      isCreditCard: true,       // check for valid credit card numbers
+
+      // custom validations are also possible:
+      isEven(value) {
+        if (parseInt(value) % 2 != 0) {
+          throw new Error('Only even values are allowed!')
+          // we also are in the model's context here, so this.otherField
+          // would get the value of otherField if it existed
+        }
+      }
+    }
+  }
+});
+```
+
+`built-in validation functions`에 여러개의 `arguments`가 필요 할 때도 있다. 그럴때는 array로 감싸서 보내자.
+
+하지만, `array` 하나를 인자로 사용해야 하는 경우 `['foo', 'bar']`,  
+이런 경우는 하나의 array가 아닌, 여러개의 string 으로 인식된다. `['f', 'o', 'o', 'b', 'a', 'r']`  
+
+그럴때는 `[['foo'], ['bar']]` 처럼 한번더 감싸서 보내자.
+
+`validator.js`에서 제공하는 에러메세지 대신에, custom error message를 사용하려면 `isIn`등 key에 `plain Value` 대신, `msg` 정보가 담긴 객체를 보내면 된다.
+
+```js
+isInt: {
+  msg: "Must be an integer number of pennies"
+}
+
+isIn: {
+  // msg with arguments
+  args: [['en', 'zh']],
+  msg: "Must be English or Chinese"
+}
+```
+
+### Validators and `allowNull`
+
+특정 field에 `allowNull` 옵션이 할당되고, 실제로 `null`값이 할당되면, `validators`는 실행되지 않는다. 
