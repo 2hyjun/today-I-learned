@@ -1,5 +1,5 @@
 # 개요
-1. [BigQuery 작업](./BigQuery#big-query-작업-소개)
+1. BigQuery 작업
 2. Datasets
 3. Table Schema
 4. Schema Auto-detection
