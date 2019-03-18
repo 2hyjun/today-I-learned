@@ -20,6 +20,6 @@
 - [x] Sentry Configuration: Deprecated.
 - [x] CodePush + Sentry Usage
 - [ ] Update Sentry Configuration
-- [ ] Docker concepts
-- [x] K8S consepts & pratice
+- [x] Docker concepts
+- [ ] K8S consepts & pratice
 - [ ] CI/CD via docker, k8s, circleCI
