@@ -21,5 +21,5 @@
 - [x] CodePush + Sentry Usage
 - [ ] Update Sentry Configuration
 - [ ] Docker concepts
-- [ ] K8S consepts & pratice
+- [x] K8S consepts & pratice
 - [ ] CI/CD via docker, k8s, circleCI
