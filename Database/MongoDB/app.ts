@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
 import AppRouter from './routes';
+import morgan from 'morgan';
 
 const app = express();
 const port = 8081;
@@ -9,6 +10,7 @@ const port = 8081;
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(morgan('combined'));
 
 if (process.env.MONGO_URL) {
   mongoose
