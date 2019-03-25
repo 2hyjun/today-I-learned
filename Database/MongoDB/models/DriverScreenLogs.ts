@@ -22,7 +22,13 @@ export interface ExtractedDriverScreenLogs {
 }
 
 export interface DriverScreenLogsModel extends Model<DriverScreenLogsDocument> {
-  insertLogs: (driver_id: number, on_time: number, screen: string, timezone: number) => Promise<void>;
+  insertLogs: (
+    driver_id: number,
+    on_time: number,
+    screen: string,
+    timezone: number,
+    timestamp: number
+  ) => Promise<void>;
   findByDriverId: (driver_id: number) => Promise<DriverScreenLogsDocument>;
   extractLogs: (timezone: number) => Promise<ExtractedDriverScreenLogs>;
 }
@@ -34,6 +40,8 @@ const DriverScreenLogsSchema = new mongoose.Schema(
     timezone: { type: Number, required: false, default: 0 },
   },
   {
+    usePushEach: true,
+    collection: 'driver_screen_logs',
     timestamps: {
       updatedAt: 'updated_at', // auto add createAt, updatedAt
       createdAt: false,
@@ -49,7 +57,8 @@ DriverScreenLogsSchema.statics.insertLogs = async (
   driver_id: number,
   on_time: number,
   screen: string,
-  timezone: number
+  timezone: number,
+  timestamp: number
 ) => {
   await DriverScreenLogs.findOneAndUpdate(
     { driver_id },
@@ -58,17 +67,19 @@ DriverScreenLogsSchema.statics.insertLogs = async (
         screen_logs: {
           on_time,
           screen,
-          timestamp: new Date().getTime(),
+          timestamp,
         },
       },
       timezone,
     },
-    { upsert: true }
+    {
+      upsert: true,
+    }
   );
 };
 
 const DriverScreenLogs = mongoose.model<DriverScreenLogsDocument, DriverScreenLogsModel>(
-  'DriverLocation',
+  'DriverScreenLog',
   DriverScreenLogsSchema
 );
 

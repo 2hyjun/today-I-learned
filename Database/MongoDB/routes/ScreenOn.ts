@@ -24,7 +24,7 @@ router.post('/screen_on', async (req, res) => {
 
   // DriverScreenLogs.findByDriverId(1).then(console.log)
   try {
-    await DriverScreenLogs.insertLogs(id, 100, moment().format(), parseInt(timezone, 10));
+    await DriverScreenLogs.insertLogs(id, 100, moment().format(), parseInt(timezone, 10), new Date().getTime());
     const rst = await DriverScreenLogs.find();
     res.send(rst);
   } catch (e) {
