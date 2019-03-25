@@ -1,5 +1,7 @@
 # `Kubernetes`
 
+> source from [IBM developerWorks Meetup](https://www.youtube.com/watch?v=l42GttmnnZ4)
+
 `Kubernetes(k8s)`: `Container Orchestration` tool.
 
 ### 1. `Container Orchestration`이 왜 필요한가?
