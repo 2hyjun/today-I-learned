@@ -30,7 +30,6 @@ export interface DriverScreenLogsModel extends Model<DriverScreenLogsDocument> {
     timestamp: number
   ) => Promise<void>;
   findByDriverId: (driver_id: number) => Promise<DriverScreenLogsDocument>;
-  extractLogs: (timezone: number) => Promise<ExtractedDriverScreenLogs>;
 }
 
 const DriverScreenLogsSchema = new mongoose.Schema(
@@ -43,7 +42,7 @@ const DriverScreenLogsSchema = new mongoose.Schema(
     usePushEach: true,
     collection: 'driver_screen_logs',
     timestamps: {
-      updatedAt: 'updated_at', // auto add createAt, updatedAt
+      updatedAt: 'updated_at',
       createdAt: false,
     },
   }

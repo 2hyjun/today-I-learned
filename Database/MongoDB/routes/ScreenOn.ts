@@ -44,17 +44,6 @@ router.delete('/screen_on', (req, res) => {
     });
 });
 
-router.put('/screen_on', async (req, res) => {
-  const { timezone } = req.body;
-  try {
-    const rst = await DriverScreenLogs.extractLogs(timezone);
-    res.send(rst);
-  } catch (e) {
-    console.log(e);
-    res.send(e);
-  }
-});
-
 router.post('/custom_log', async (req, res) => {
   const { id, timezone, timestamp, on_time, screen } = req.body;
   const driver = await DriverScreenLogs.findOne({ driver_id: id });
