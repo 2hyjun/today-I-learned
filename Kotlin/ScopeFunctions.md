@@ -1,12 +1,12 @@
 # Scope Functions
 
-`Kotlin Standard Library`는 한 오브젝트의 `context`를 가지고 block을 실행하는 목적의 몇몇 함수가 있다.  
-특정 object에 이 함수를 `lambda expression`로 실행할때 일시적인 scope를 형성한다. 이 스코프에서, 이름없이 그 object에 접근할 수 있다.  
+`Kotlin Standard Library`는 한 오브젝트의 `context`를 가지고 block을 실행하는 목적의 함수가 있다.  
+오브젝트에 이 함수들을 `lambda expression`형태로 실행할때 일시적인 scope를 형성한다. 이 스코프에서, object의 이름없이 object에 접근할 수 있다.  
 이 함수를 `scope function`이라 부르고, `let`, `run`, `with`, `apply`, `also`가 있다.
 
-기본적으로 이 함수들은 같은 일을 한다.
+이 함수들은 기본적으로 같은 동작구조를 가진다.
 
-> 특정 객체에서 block의 코드를 실행한다.
+> 특정 객체의 `context`를 가지고 `block`안의 코드를 실행한다.
 
 다른점은 **어떻게 이 객체들이 block에서 접근 가능해지는지**, **전체 expression의 결과물이 무엇인지** 이다.
 
