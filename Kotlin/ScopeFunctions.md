@@ -29,7 +29,7 @@ Person("Alice", 20, "Amsterdam").let {
 // Person(name=Alice, age=21, city=London)
 ```
 
-`let`으로 같은 동작의 코드를 작성하면, 새로운 변수를 생성하고, 그 이름을 반복해야한다.
+`let`없이 같은 동작의 코드를 작성하면, 새로운 변수를 생성하고, 그 이름을 반복해야한다.
 
 ```kotlin
 val alice = Person("Alice", 20, "Amsterdam")
