@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import mongoose, { Document, Model } from 'mongoose';
 
 export interface OnlineLogs {
@@ -35,8 +36,12 @@ const DriverOnlineLogsSchema = new mongoose.Schema(
 );
 
 DriverOnlineLogsSchema.statics.insertLogs = async (driver_id: number, timezone: number, online: boolean) => {
-  const prevData = await DriverOnlineLogs.findOne({ driver_id });
-  if (!prevData) {
+  const prevDocument = await DriverOnlineLogs.findOne({ driver_id });
+  const prevOnlineLogs = _.get(prevDocument, 'online_logs', []);
+  const lastLog = _.get(_.last(prevOnlineLogs), 'online', undefined);
+
+  if (lastLog !== online) {
+    // 이전 데이터가 없거나, 이전 데이터와 다를 경우에만 insert
     await DriverOnlineLogs.findOneAndUpdate(
       { driver_id },
       {
@@ -50,26 +55,6 @@ DriverOnlineLogsSchema.statics.insertLogs = async (driver_id: number, timezone: 
       },
       { upsert: true }
     );
-  } else {
-    const prevLogs = prevData.online_logs;
-    const lastData = prevLogs[prevLogs.length - 1];
-
-    if (lastData.online !== online) {
-      // 이전 데이터와 다를 경우에만 insert
-      await DriverOnlineLogs.findOneAndUpdate(
-        { driver_id },
-        {
-          $push: {
-            online_logs: {
-              online,
-              timestamp: new Date().getTime(),
-            },
-          },
-          timezone,
-        },
-        { upsert: true }
-      );
-    }
   }
 };
 
