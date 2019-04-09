@@ -27,3 +27,4 @@
 - [x] k8s consepts
 - [ ] k8s practice
 - [ ] CI/CD via docker, k8s, circleCI
+
